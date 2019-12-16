@@ -1,0 +1,40 @@
+{
+  "name": "trainbee",
+  "version": "1.0.0",
+  "description": "////",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://swu59902.visualstudio.com/Project%20TeaTime/_git/Project%20TeaTime"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "grunt": "^1.0.2",
+    "grunt-mocha-istanbul": "^5.0.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.0.5",
+    "path": "^0.12.7",
+    "nodemon": "^1.18.11",
+    "ejs": "^2.6.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "alert-node": "^1.2.3",
+    "aws-sdk": "^2.590.0",
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.11",
+    "nom": "0.0.3",
+    "popups": "^1.1.3",
+    "request": "^2.88.0",
+    "require": "^2.4.20"
+  }
+}

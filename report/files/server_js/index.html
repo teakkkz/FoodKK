@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - server.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>server.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">51.14</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">397</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">40.15</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.46</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">const express = require(&#039;express&#039;);
+const app = express();
+var alert = require(&#039;alert-node&#039;);
+var Arrayz = require(&#039;./ArrayList&#039;);
+app.set(&#039;view engine&#039;,&#039;ejs&#039;);
+var a = new Arrayz();
+var b = new Arrayz();
+var c = new Arrayz();
+var bodyp = require(&#039;body-parser&#039;);
+var urlencodedParser = bodyp.urlencoded({ extend: true });
+var header = &#039;&lt;header&gt;&#039;;
+var header1 = &#039;&lt;header&gt;&#039;;
+var users;
+var bdp = app.use(bodyp.json());
+const crypto = require(&#039;crypto&#039;);
+
+app.post(&#039;/getname&#039;, urlencodedParser, function (req, res) {
+  users = req.body.utext
+  console.time(&quot;name&quot;)
+  res.redirect(&#039;/book&#039;)
+  console.timeEnd(&quot;name&quot;)
+});
+
+//Add index method
+app.get(&#039;/addidx0&#039;, function (req, res) { 
+     console.time(&quot;add&quot;)
+     a.add(0)
+   
+    res.redirect(&#039;/book&#039;);
+    console.timeEnd(&quot;add&quot;)
+  });
+app.get(&#039;/addidx1&#039;, function (req, res) { 
+    b.addidx(0,1,1)
+    res.redirect(&#039;/book&#039;);
+    alert(&#039;Ticket added.&#039;)
+  });
+app.get(&#039;/addidx2&#039;, function (req, res) { 
+    c.addidx(0,1,1)
+    res.redirect(&#039;/book&#039;);
+    alert(&#039;Ticket added.&#039;)
+  });
+  //Delete method
+app.get(&#039;/delidx0&#039;, function (req, res) { 
+    console.time(&quot;del&quot;)
+    a.remove(0)
+  
+    res.redirect(&#039;/book&#039;);
+    console.timeEnd(&quot;del&quot;)
+  });
+app.get(&#039;/delidx1&#039;, function (req, res) { 
+    b.rmidx(0)
+    res.redirect(&#039;/ticket&#039;);
+    alert(&#039;Ticket removed.&#039;)
+  });
+app.get(&#039;/delidx2&#039;, function (req, res) { 
+    c.rmidx(0)
+    res.redirect(&#039;/ticket&#039;);
+    alert(&#039;Ticket removed.&#039;)
+  });
+
+app.get(&#039;/book&#039;, urlencodedParser, function (req, res) {
+  console.time(&quot;book&quot;)
+  var book = &#039;&lt;head&gt;&#039;;
+  let password = req.body.utext;
+    // Imagine that loop below is real requests to some route
+   for (let i = 0; i &lt; 20; i++) {
+     const salt = crypto.randomBytes(128).toString(&#039;base64&#039;);
+     const hash = crypto.pbkdf2Sync(password, salt, 10000, 512,null);
+   }
+
+ 
+  book += header
+
+  book +=&#039;&lt;!DOCTYPE html&gt;&#039;
+  book +=&#039;&lt;html&gt;&#039;
+  book +=&#039;&lt;style&gt;&#039;
+  book +=&#039;h2{&#039;
+  book +=&#039;text-align: center;&#039;
+  book +=&#039;}&#039;
+  
+  book +=&#039;}&lt;/style&gt;&#039;
+  book +=&#039;&lt;title&gt;Trainbee&lt;/title&gt;&#039;
+  book +=&#039;&lt;meta charset=&quot;UTF-8&quot;&gt;&#039;
+  book +=&#039;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#039;
+  book +=&#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://www.w3schools.com/w3css/4/w3.css&quot;&gt;&#039;
+  book +=&#039;&lt;body&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-top&quot;&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-bar w3-white w3-wide w3-padding w3-card&quot;&gt;&#039;
+  book +=&#039;&lt;a href=&quot;/&quot; class=&quot;w3-bar-item w3-button&quot;&gt;&lt;b&gt;Train&lt;/b&gt;Bee&lt;/a&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-right w3-hide-small&quot;&gt;&#039;
+  book +=&#039;&lt;a href=&quot;/book&quot; class=&quot;w3-bar-item w3-button&quot;&gt;Book&lt;/a&gt;&#039;
+  book +=&#039;&lt;a href=&quot;/ticket&quot; class=&quot;w3-bar-item w3-button&quot;&gt;MyTicket&lt;/a&gt;&#039;
+  book +=&#039;&lt;a href=&quot;/contact&quot; class=&quot;w3-bar-item w3-button&quot;&gt;About Us&lt;/a&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;!-- Header --&gt;&#039;
+  book +=&#039;&lt;header style=&quot;max-width:1500px max-height:500px;&quot;&gt;&#039;
+  book +=  &#039;&lt;img class=&quot;w3-image&quot; src=&quot;https://images7.alphacoders.com/661/661783.jpg&quot; alt=&quot;Architecture&quot; width=&quot;1500&quot; height=&quot;800&quot;&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-display-middle w3-margin-top w3-center&quot;&gt;&lt;br&gt;&lt;br&gt;&#039;
+  book += &#039;&lt;h1 class=&quot;w3-padding w3-white w3-opacity-min&quot;&gt;&lt;b&gt;Welcome&lt;/b&gt;&lt;/span&gt;&#039;
+  book +=&#039;&lt;h1 class=&quot;w3-padding w3-white w3-opacity-min&quot;&gt;&lt;b&gt;&#039;+ users +&#039;&lt;/b&gt;&lt;/span&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;/header&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-content w3-padding&quot; style=&quot;max-width:1564px&quot;&gt;&#039; 
+  book +=&#039;&lt;!-- Project Section --&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-container w3-padding-32&quot; id=&quot;projects&quot;&gt;&#039;
+  book +=&#039;&lt;h3 class=&quot;w3-border-bottom w3-border-light-grey w3-padding-16&quot;&gt;Book&lt;/h3&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;h2&gt;Ticket&lt;/h2&gt;&#039;
+  book +=&#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  book += &#039;&lt;ul class=&quot;w3-ul w3-border w3-center w3-hover-shadow&quot;&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-black w3-xlarge w3-padding-32&quot;&gt; Economy&lt;/li&gt;&#039;
+  book +=   &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;No&lt;/b&gt; Meals&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;No&lt;/b&gt; Gifts&lt;/li&gt;&#039;
+  book +=   &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&#039;
+  book +=&#039;&lt;h2 class=&quot;w3-wide&quot;&gt;$ 10&lt;/h2&gt;&#039;
+  book +=    &#039;&lt;span class=&quot;w3-opacity&quot;&gt;seat: &#039; + a.trim() + &#039;/1&lt;/span&gt;&#039;
+  book +=   &#039;&lt;/li&gt;&#039;
+  book +=   &#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+  book +=&#039;&lt;form action= &quot;/addidx0&quot; method=&quot;GET&quot;&gt;&#039;
+  book +=&#039;&lt;input class=&quot;w3-button w3-green w3-padding-large&quot; name=&quot;addbtn&quot;type=&quot;submit&quot;&#039;
+  if (a.Getidx(0) != null) {
+    book += &#039;value=&quot;Full&quot; disabled&#039;;
+      // alert(&quot;Ticket booked.&quot;);
+  }else {
+    book += &#039;value=&quot;Book&quot;&#039;;
+  }
+  book +=&#039;/&gt;&lt;/form&gt; &#039; 
+  book +=  &#039;&lt;/li&gt;&#039;
+  book +=&#039;&lt;/ul&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book += &#039; &lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  book += &#039;&lt;ul class=&quot;w3-ul w3-border w3-center w3-hover-shadow&quot;&gt;&#039;
+  book +=&#039;&lt;li class=&quot;w3-dark-grey w3-xlarge w3-padding-32&quot;&gt;Business&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;Free&lt;/b&gt; Meals&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;No&lt;/b&gt; Gifts&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&#039;
+  book +=   &#039;&lt;h2 class=&quot;w3-wide&quot;&gt;$ 25&lt;/h2&gt;&#039;
+  book += &#039;&lt;span class=&quot;w3-opacity&quot;&gt;seat: &#039; + b.trim() + &#039;/1&lt;/span&gt;&#039;
+  book += &#039;&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+  book +=&#039;&lt;form action= &quot;/addidx1&quot; method=&quot;GET&quot;&gt;&#039;
+  book +=&#039;&lt;input class=&quot;w3-button w3-green w3-padding-large&quot;type=&quot;submit&quot;name=&quot;addbtn&quot;&#039;
+  if(b.Getidx(0) != null){
+    book += &#039;value=&quot;Full&quot; disabled&#039;;
+  }else{
+    book += &#039;value=&quot;Book&quot;&#039;;
+  }
+  book +=&#039;/&gt;&lt;/form&gt; &#039; 
+  book +=  &#039;&lt;/li&gt;&#039;
+  book += &#039;&lt;/ul&gt;&#039;
+  book += &#039;&lt;/div&gt;&#039;
+  book += &#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  book += &#039;&lt;ul class=&quot;w3-ul w3-border w3-center w3-hover-shadow&quot;&gt;&#039;
+  book +=   &#039;&lt;li class=&quot;w3-black w3-xlarge w3-padding-32&quot;&gt;First-Class&lt;/li&gt;&#039;
+  book +=   &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;Free&lt;/b&gt; Meals&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;Free&lt;/b&gt; Gifts&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&#039;
+  book +=    &#039;&lt;h2 class=&quot;w3-wide&quot;&gt;$ 50&lt;/h2&gt;&#039;
+  book +=    &#039;&lt;span class=&quot;w3-opacity&quot;&gt;seat: &#039; + c.trim() + &#039;/ 1&lt;/span&gt;&#039;
+  book +=  &#039;&lt;/li&gt;&#039;
+  book +=  &#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+  book +=&#039;&lt;form action= &quot;/addidx2&quot; method=&quot;GET&quot;&gt;&#039;
+  book +=&#039;&lt;input class=&quot;w3-button w3-green w3-padding-large&quot;type=&quot;submit&quot;name=&quot;addbtn&quot;&#039;
+  if (c.Getidx(0) != null) {
+    book += &#039;value=&quot;Full&quot; disabled&#039;;
+  }else{
+    book += &#039;value=&quot;Book&quot;&#039;;
+  }
+  book +=&#039;/&gt;&lt;/form&gt; &#039; 
+  book +=  &#039;&lt;/li&gt;&#039;
+  book += &#039;&lt;/ul&gt;&#039;
+  book += &#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;div class=&quot;wrapper&quot;&gt;&#039;
+  book +=&#039;&lt;footer class=&quot;w3-center w3-black w3-padding-16&quot;&gt;&#039;
+  book +=&#039;&lt;p&gt; TeaTime&lt;/p&gt;&#039;
+  book +=&#039;&lt;/footer&gt;&#039;
+  book +=&#039;&lt;/div&gt;&#039;
+  book +=&#039;&lt;/body&gt;&#039;
+  book +=&#039;&lt;/html&gt;&#039;
+  res.send(book);
+  console.timeEnd(&quot;book&quot;)
+  });
+app.get(&#039;/result&#039;, urlencodedParser, function (req, res) {
+   console.time(&quot;result&quot;)
+   var result = &#039;&#039;;
+ 
+
+  result += header1
+  result +=&#039;&lt;!DOCTYPE html&gt;&#039;
+  result +=&#039;&lt;html&gt;&#039;
+  result +=&#039;&lt;title&gt;Trainbee&lt;/title&gt;&#039;
+  result +=&#039;&lt;meta charset=&quot;UTF-8&quot;&gt;&#039;
+  result +=&#039;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#039;
+  result +=&#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://www.w3schools.com/w3css/4/w3.css&quot;&gt;&#039;
+  result +=&#039;&lt;div class=&quot;w3-top&quot;&gt;&#039;
+  result +=&#039;&lt;div class=&quot;w3-bar w3-white w3-wide w3-padding w3-card&quot;&gt;&#039;
+  result += &#039;&lt;a href=&quot;/&quot; class=&quot;w3-bar-item w3-button&quot;&gt;&lt;b&gt;Train&lt;/b&gt;Bee&lt;/a&gt;&#039;
+  result +=&#039;&lt;div class=&quot;w3-right w3-hide-small&quot;&gt;&#039;
+  result +=&#039;&lt;a href=&quot;/book&quot; class=&quot;w3-bar-item w3-button&quot;&gt;Book&lt;/a&gt;&#039;
+  result +=&#039;&lt;a href=&quot;/ticket&quot; class=&quot;w3-bar-item w3-button&quot;&gt;MyTicket&lt;/a&gt;&#039;
+  result +=&#039;&lt;a href=&quot;/contact&quot; class=&quot;w3-bar-item w3-button&quot;&gt;About Us&lt;/a&gt;&#039;
+  result +=&#039;&lt;/div&gt;&#039;
+  result +=&#039;&lt;/div&gt;&#039;
+  result +=&#039;&lt;/div&gt;&#039;
+  result +=&#039;&lt;body&gt;&#039;
+  result +=&#039;&lt;img class=&quot;w3-image&quot; src=&quot;https://images7.alphacoders.com/661/661783.jpg&quot; width=&quot;1500&quot; height=&quot;600&quot;&gt;&#039;
+  result += &#039;&lt;div class=&quot;w3-display-middle w3-margin-top w3-center&quot;&gt;&lt;br&gt;&lt;br&gt;&#039;
+  result += &#039;&lt;h1 class=&quot;w3-padding w3-white w3-opacity-min&quot;&gt;&lt;b&gt;My Ticket&lt;/b&gt;&lt;/span&gt;&#039;
+  result += &#039;&lt;/div&gt;&#039;
+  result += &#039;&lt;/header&gt;&#039;
+  result +=&#039;&lt;div class=&quot;w3-content w3-padding&quot; style=&quot;max-width:1564px&quot;&gt;&#039; 
+  result +=&#039;&lt;!-- Project Section --&gt;&#039;
+  result +=&#039;&lt;div class=&quot;w3-container w3-padding-32&quot; id=&quot;projects&quot;&gt;&#039;
+  result +=&#039;&lt;/div&gt;&#039;
+  result +=&#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  result += &#039;&lt;ul class=&quot;w3-ul w3-border w3-center w3-hover-shadow&quot;&gt;&#039;
+  result +=  &#039;&lt;li class=&quot;w3-black w3-xlarge w3-padding-32&quot;&gt; Economy&lt;/li&gt;&#039;
+  result +=   &#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+if (a.Getidx(0) != null) {
+  result +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;You have 1 ticket.&lt;/li&gt;&#039;    
+  result +=&#039;&lt;form action= &quot;/delidx0&quot; method=&quot;GET&quot;&gt;&#039;
+  result +=&#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;input class=&quot;w3-button w3-red&quot;value=&quot;Delete&quot;name=&quot;addbtn&quot;type=&quot;submit&quot;/&gt;&lt;/form&gt;&lt;/li&gt;&#039;
+}else{
+  result +=&#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;-&lt;/b&gt;&#039;
+  }
+  result +=&#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+  result +=&#039;&lt;/li&gt;&#039;
+  result +=&#039;&lt;/ul&gt;&#039;
+  result +=&#039;&lt;/div&gt;&#039;
+  result += &#039; &lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  result += &#039;&lt;ul class=&quot;w3-ul w3-border w3-center w3-hover-shadow&quot;&gt;&#039;
+  result +=&#039;&lt;li class=&quot;w3-dark-grey w3-xlarge w3-padding-32&quot;&gt;Business&lt;/li&gt;&#039;
+  result +=   &#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+    if (b.Getidx(0) != null) {
+      result +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;You have 1 ticket.&lt;/li&gt;&#039;    
+      result +=&#039;&lt;form action= &quot;/delidx1&quot; method=&quot;GET&quot;&gt;&#039;
+      result +=&#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;input class=&quot;w3-button w3-red&quot;value=&quot;Delete&quot;name=&quot;addbtn&quot;type=&quot;submit&quot;/&gt;&lt;/form&gt;&lt;/li&gt;&#039;
+    }else{
+      result +=&#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;-&lt;/b&gt;&#039;
+    }
+  result +=&#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+   
+  result +=&#039;&lt;/li&gt;&#039;
+  result += &#039;&lt;/ul&gt;&#039;
+  result += &#039;&lt;/div&gt;&#039;
+
+  result += &#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  result += &#039;&lt;ul class=&quot;w3-ul w3-border w3-center w3-hover-shadow&quot;&gt;&#039;
+  result +=   &#039;&lt;li class=&quot;w3-black w3-xlarge w3-padding-32&quot;&gt;First-Class&lt;/li&gt;&#039;
+  result +=   &#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+    if (c.Getidx(0) != null) {
+      result +=  &#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;You have 1 ticket.&lt;/li&gt;&#039;    
+      result +=&#039;&lt;form action= &quot;/delidx2&quot; method=&quot;GET&quot;&gt;&#039;
+      result +=&#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;input class=&quot;w3-button w3-red&quot;value=&quot;Delete&quot;name=&quot;addbtn&quot;type=&quot;submit&quot;/&gt;&lt;/form&gt;&lt;/li&gt;&#039;
+    }else{
+      result +=&#039;&lt;li class=&quot;w3-white w3-padding-16&quot;&gt;&lt;b&gt;-&lt;/b&gt;&#039;
+    }
+  result +=&#039;&lt;li class=&quot;w3-light-grey w3-padding-24&quot;&gt;&#039;
+  result +=&#039;&lt;/li&gt;&#039;
+  result += &#039;&lt;/ul&gt;&#039;
+  result += &#039;&lt;/div&gt;&#039;
+  result +=&#039;&lt;div class=&quot;wrapper&quot;&gt;&#039;
+  result +=&#039;&lt;footer class=&quot;w3-center w3-black w3-padding-16&quot;&gt;&#039;
+  result +=&#039;&lt;p&gt; TeaTime&lt;/p&gt;&#039;
+  result +=&#039;&lt;/footer&gt;&#039;
+  result +=&#039;&lt;/div&gt;&#039;
+  result +=&#039;&lt;/body&gt;&#039;
+  result +=&#039;&lt;/html&gt;&#039;
+  res.send(result);
+  console.timeEnd(&quot;result&quot;)
+});
+//Index Page
+app.get(&#039;/&#039;, urlencodedParser, function (req, res) {
+  console.time(&quot;index&quot;)
+  var html = &#039;&lt;head&gt;&#039;;
+  html += header
+  html +=&#039;&lt;!DOCTYPE html&gt;&#039;
+  html +=&#039;&lt;html&gt;&#039;
+  html +=&#039;&lt;title&gt;TrainBee&lt;/title&gt;&#039;
+  html +=&#039;&lt;meta charset=&quot;UTF-8&quot;&gt;&#039;
+  html +=&#039;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#039;
+  html +=&#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://www.w3schools.com/w3css/4/w3.css&quot;&gt;&#039;
+  html +=&#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css?family=Raleway&quot;&gt;&#039;
+  html +=&#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;&gt;&#039;
+  html +=&#039;&lt;style&gt;&#039;
+  html +=&#039;h1,input {font-family: &quot;Raleway&quot;, sans-serif}&#039;
+  html +=&#039;&lt;/style&gt;&#039;
+  html +=&#039;&lt;body&gt;&#039;
+  html +=&#039;&lt;div class=&quot;w3-top&quot;&gt;&#039;
+  html +=   &#039;&lt;div class=&quot;w3-bar w3-white w3-wide w3-padding w3-card&quot;&gt;&#039;
+  html +=     &#039;&lt;a href=&quot;/&quot; class=&quot;w3-bar-item w3-button&quot;&gt;&lt;b&gt;Train&lt;/b&gt;Bee&lt;/a&gt;&#039;
+  html +=   &#039;&lt;/div&gt;&#039;
+  html += &#039;&lt;/div&gt;&#039;
+  html +=&#039;&lt;header class=&quot;w3-display-container w3-content w3-wide&quot; style=&quot;max-width:1500px;&quot;&gt;&#039;
+  html +=    &#039;&lt;img src=&quot;https://images7.alphacoders.com/661/661783.jpg&quot; width=&quot;1500&quot; height=&quot;800&quot;&gt;&#039;
+  html +=   &#039;&lt;div class=&quot;w3-display-middle w3-margin-top w3-center&quot;&gt;&#039;
+  html +=    &#039;&lt;h1 class=&quot;w3-xxlarge w3-text-white&quot;&gt;&lt;span class=&quot;w3-padding w3-black w3-opacity-min&quot;&gt;&lt;b&gt;Enter your Name&lt;/b&gt;&lt;/span&gt; &lt;br&gt;&lt;/br&gt;&#039;
+  html +=    &#039;&lt;form  action=&quot;/getname&quot; method=&quot;POST&quot;&gt;&#039;
+  html +=      &#039;&lt;input style=&quot;text-align: center;&quot; type =&quot;text w3-center&quot;name=&quot;utext&quot;placeholder=&quot;example&quot;required&gt;&lt;br&gt;&#039;
+  html +=      &#039;&lt;br&gt;&lt;input name=&quot;hello&quot; type=&quot;submit&quot; class=&quot;btn btn-danger btn-lg&quot; value=&quot;Enter&quot;&gt;&#039;
+  html +=    &#039;&lt;/form&gt;&#039;
+  html +=   &#039;&lt;/div&gt;&#039;
+  html +=  &#039;&lt;/header&gt;&#039;
+  html +=&#039;&lt;footer class=&quot;w3-center w3-black w3-padding-16&quot;&gt;&#039;
+  html +=&#039;&lt;p&gt; TeaTime &lt;/p&gt;&#039;
+  html +=&#039;&lt;/footer&gt;&#039;
+  html +=&#039;&lt;/body&gt;&#039;
+  html +=&#039;&lt;/html&gt;&#039;
+  res.send(html);
+  console.timeEnd(&quot;index&quot;)
+});
+
+//Contact page
+app.get(&#039;/contact&#039;, urlencodedParser, function (req, res) {
+  console.time(&quot;contact&quot;)
+  var contact = &#039;&lt;head&gt;&#039;;
+ 
+  contact += header
+  contact +=&#039;&lt;!DOCTYPE html&gt;&#039;
+  contact +=&#039;&lt;html&gt;&#039;
+  contact +=&#039;&lt;title&gt;About Us&lt;/title&gt;&#039;
+  contact +=&#039;&lt;meta charset=&quot;UTF-8&quot;&gt;&#039;
+  contact +=&#039;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#039;
+  contact +=&#039;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://www.w3schools.com/w3css/4/w3.css&quot;&gt;&#039;
+  contact +=&#039;&lt;body&gt;&#039;
+
+  contact +=&#039;&lt;div class=&quot;w3-top&quot;&gt;&#039;
+  contact +=  &#039;&lt;div class=&quot;w3-bar w3-white w3-wide w3-padding w3-card&quot;&gt;&#039;
+  contact +=   &#039;&lt;a href=&quot;/&quot; class=&quot;w3-bar-item w3-button&quot;&gt;&lt;b&gt;Train&lt;/b&gt; Bee&lt;/a&gt;&#039;
+  contact +=   &#039;&lt;div class=&quot;w3-right w3-hide-small&quot;&gt;&#039;
+  contact +=       &#039;&lt;a href=&quot;/book&quot; class=&quot;w3-bar-item w3-button&quot;&gt;Book&lt;/a&gt;&#039;
+  contact +=       &#039;&lt;a href=&quot;/ticket&quot; class=&quot;w3-bar-item w3-button&quot;&gt;MyTicket&lt;/a&gt;&#039;
+  contact +=       &#039;&lt;a href=&quot;/contact&quot; class=&quot;w3-bar-item w3-button&quot;&gt;About Us&lt;/a&gt;&#039;
+  contact +=    &#039;&lt;/div&gt;&#039;
+  contact +=  &#039;&lt;/div&gt;&#039;
+  contact +=&#039;&lt;/div&gt;&#039;
+
+
+  contact +=&#039;&lt;/head&gt;&#039;
+  contact += &#039;&lt;div class=&quot;w3-row-padding&quot; id=&quot;about&quot;&gt;&#039;
+  contact += &#039;&lt;div class=&quot;w3-center w3-padding-64&quot;&gt;&#039;
+  contact +=   &#039;&lt;span class=&quot;w3-xlarge w3-padding-16&quot;&gt;My Team&lt;/span&gt;&#039;
+  contact += &#039;&lt;/div&gt;&#039;
+
+  contact +=&#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  contact +=   &#039;&lt;div class=&quot;w3-card-4&quot;&gt;&#039;
+  contact +=    &#039;&lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;https://www.img.in.th/images/e3b0e7e2cfabf1463111334b014d3f14.jpg&quot; alt=&quot;GGyz&quot; style=&quot;width:78%&quot;&gt;&lt;/div&gt;&#039;
+  contact +=    &#039;&lt;div class=&quot;w3-container&quot;&gt;&#039;
+  contact +=      &#039;&lt;i&gt;&lt;h3&gt;Manassanun Krutta&lt;/h3&gt;&lt;/i&gt;&#039;
+  contact +=      &#039;&lt;h5&gt;Student ID: 59102010277&lt;/h5&gt;&#039;
+  contact +=      &#039;&lt;a href=&quot;swu59277@outlook.com&quot;&gt;E-mail:swu59277@outlook.com&lt;/a&gt;&#039;
+  contact +=      &#039;&lt;p&gt;&lt;/p&gt;&#039;
+  contact +=    &#039;&lt;/div&gt;&#039;
+  contact +=  &#039;&lt;/div&gt;&#039;
+  contact +=&#039;&lt;/div&gt;&#039;
+
+  contact +=&#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  contact +=  &#039;&lt;div class=&quot;w3-card-4&quot;&gt;&#039;
+  contact +=    &#039;&lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;https://www.img.in.th/images/c7f2a10e13b6fed51540f7f65af50e36.jpg&quot; alt=&quot;Tekz&quot; style=&quot;width:78%&quot;&gt;&lt;/div&gt;&#039;
+  contact +=    &#039;&lt;div class=&quot;w3-container&quot;&gt;&#039;
+  contact +=      &#039;&lt;i&gt;&lt;h3&gt;Suwatchai Kiatchalermporn&lt;/h3&gt;&lt;/i&gt;&#039;
+  contact +=      &#039;&lt;h5&gt;Student ID: 59102010298&lt;/h5&gt;&#039;
+  contact +=      &#039;&lt;a href=&quot;swu59298@outlook.com&quot;&gt;E-mail:swu59298@outlook.com&lt;/a&gt;&#039;
+  contact +=    &#039;&lt;p&gt;&lt;/p&gt;&#039;
+  contact +=   &#039;&lt;/div&gt;&#039;
+  contact +=   &#039;&lt;/div&gt;&#039;
+  contact += &#039;&lt;/div&gt;&#039;
+  contact += &#039;&lt;div class=&quot;w3-third w3-margin-bottom&quot;&gt;&#039;
+  contact +=   &#039;&lt;div class=&quot;w3-card-4&quot;&gt;&#039;
+  contact +=     &#039;&lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;https://www.img.in.th/images/f7cf618f23a9abcfbc9deb36138a310d.jpg&quot; alt=&quot;Golf&quot; style=&quot;width:82%&quot;&gt;&lt;/div&gt;&#039;
+  contact +=     &#039;&lt;div class=&quot;w3-container&quot;&gt;&#039;
+  contact +=       &#039;&lt;i&gt;&lt;h3&gt;Nattapol Lerdridtipong&lt;/h3&gt;&lt;/i&gt;&#039;
+  contact +=       &#039;&lt;h5&gt;Student ID: 59102010902&lt;/h5&gt;&#039;
+  contact +=      &#039;&lt;a href=&quot;swu59902@outlook.com&quot;&gt;E-mail:swu59902@outlook.com&lt;/a&gt;&#039;
+  contact +=      &#039;&lt;p&gt;&lt;/p&gt;&#039;
+  contact +=    &#039;&lt;/div&gt;&#039;
+  contact +=  &#039;&lt;/div&gt;&#039;
+  contact +=&#039;&lt;/div&gt;&#039;
+  contact +=&#039;&lt;/div&gt;&#039;
+  contact +=&#039;&lt;div class=&quot;wrapper&quot;&gt;&#039;
+  contact +=&#039;&lt;footer class=&quot;w3-center w3-black w3-padding-16&quot;&gt;&#039;
+  contact +=&#039;&lt;p&gt; TeaTime &lt;/p&gt;&#039;
+  contact +=&#039;&lt;/footer&gt;&#039;
+  contact +=&#039;&lt;/div&gt;&#039;
+  contact +=&#039;&lt;/body&gt;&#039;
+  contact +=&#039;&lt;/html&gt;&#039;
+  res.send(contact);
+  console.timeEnd(&quot;contact&quot;)
+});
+
+// Listen to the App Engine-specified port, or 8080 otherwise
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () =&gt; {
+  console.log(`Server listening on port ${PORT}...`);
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
